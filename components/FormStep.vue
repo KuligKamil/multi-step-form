@@ -1,31 +1,33 @@
 <script setup lang="ts">
+defineProps<{
+  title: string,
+  description: string,
+}>();
 
 </script>
 
 <template>
-  <div class="bg-white rounded-2xl flex flex-col"
-    style="width: 640px; height: 525px; box-shadow: 10px 10px 0px 0px #F4EDD6">
-    <Steps></Steps>
-    <!-- <span class="line" style=""></span> -->
-    <div class="flex flex-col items-center">
-      <div class="mb-8" style="width: 580px; height: 0px; border: 0.50px #E5E7EB solid"></div>
-    </div>
+  <div class="bg-white w-[640px] h-[525px] rounded-2xl flex flex-col" style="box-shadow: 10px 10px 0px 0px #F4EDD6">
+    <StepsProgress />
+    <BaseLine />
     <div>
       <div class="flex flex-col ml-8 mb-5">
-        <h2 class=" text-gray-900 text-2xl font-medium mb-2">
-          Personal Information
+        <h2 class="text-gray-900 text-2xl font-medium mb-2 font-poppins-500">
+          {{ title }}
         </h2>
         <p class="text-gray-500 text-sm font-normal">
-          Please provide your personal details so we can get to know you better.
+          {{ description }}
         </p>
       </div>
-      <form class="flex flex-wrap gap-2 justify-between mx-8">
-        <slot></slot>
-        <div class="mt-8" style="width: 580px; height: 0px; border: 0.50px #E5E7EB solid"></div>
+      <form class="flex flex-wrap justify-between mx-8" submit.prevent="onSubmit">
+
+        <div class="flex flex-wrap justify-between">
+          <slot name="content"></slot>
+        </div>
+
+        <BaseLine class="mt-8" />
         <div class="w-full flex flex-row-reverse">
-          <button class="w-28 h-10 px-6 py-2.5 bg-red-400 rounded-lg text-center text-white text-sm font-medium mt-4">
-            Next step
-          </button>
+          <slot name="buttons"></slot>
         </div>
       </form>
     </div>
