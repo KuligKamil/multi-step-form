@@ -1,20 +1,24 @@
 <script setup lang="ts">
-
+defineProps<{
+  numberOfSteps: number
+  activeNumber: number
+}>()
 </script>
 
 <template>
-  <div>
-    <div class="flex justify-center items-center my-8">
-      <div class="step active ml-0">1</div>
-      <div class="line"></div>
-      <div class="step">2</div>
-      <div class="line"></div>
-      <div class="step">3</div>
-      <div class="line"></div>
-      <div class="step mr-0">4</div>
+  <div class="max-sm:hidden relative overflow-auto">
+    <div class="overflow-x-scroll flex justify-center items-center mb-8">
+      <template v-for="step in numberOfSteps" :key="step">
+        <!-- ml-0 mr-0 -->
+        <div class="step" :class="{ active: step <= activeNumber }">
+          {{ step }}
+        </div>
+        <div v-if="step !== numberOfSteps" class="line" :class="{ active: step < activeNumber }" />
+      </template>
     </div>
   </div>
 </template>
+
 <style lang="postcss" scoped>
 .step {
   @apply w-8 h-8 flex justify-center items-center rounded-full bg-gray-200 mx-5
